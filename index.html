@@ -2,108 +2,112 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CODIFICADOR - links</title>
+<title>CODIFICADOR - PROJETOS E IDEIAS (YouTube)</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#0a0a0a;color:#fff;font-family:Arial;padding:12px}
-.box{background:#111;border:1px solid #222;border-radius:12px;padding:12px;margin-bottom:12px}
-input,select,textarea{width:100%;padding:12px;background:#000;border:1px solid #333;color:#fff;border-radius:8px;margin:6px 0}
-button{padding:12px 16px;border:0;border-radius:8px;font-weight:900;cursor:pointer;margin:4px}
-.btn-verde{background:#00ff88;color:#000}.btn-vermelho{background:#f00;color:#fff}.btn-amarelo{background:#ffcc00;color:#000}
-.filme-item{display:flex;justify-content:space-between;background:#000;padding:8px;margin:4px 0;border-radius:8px;font-size:12px}
-.chip{display:inline-block;background:#222;border:1px solid #333;padding:6px 10px;border-radius:20px;margin:3px;font-size:11px}
-.chip.ativo{background:#f00;border-color:#f00}
+*{box-sizing:border-box}body{margin:0;background:#050505;color:#fff;font-family:Arial;padding:12px}
+.box{background:#111;border:1px solid #333;border-radius:14px;padding:14px;margin-bottom:14px}
+input,select,textarea{width:100%;padding:13px;background:#000;border:1px solid #333;color:#fff;border-radius:10px;margin:6px 0;font-size:14px}
+button{padding:12px 16px;border:0;border-radius:10px;font-weight:900;cursor:pointer;margin:4px}
+.btn-amarelo{background:#FFD700;color:#000}.btn-cinza{background:#222;color:#fff;border:1px solid #333}.btn-verde{background:#00ff88;color:#000}.btn-vermelho{background:#ff2222;color:#fff}
+.filme-item{display:flex;justify-content:space-between;align-items:center;background:#000;padding:10px;margin:6px 0;border-radius:10px;font-size:12px;border:1px solid #222}
+.chip{display:inline-block;background:#1a1a1a;border:1px solid #444;padding:7px 12px;border-radius:20px;margin:4px;font-size:11px;cursor:pointer}
+.chip.ativo{background:#FFD700;color:#000;border-color:#FFD700;font-weight:900}
 </style>
 </head>
 <body>
-<h2>⚙️ CODIFICADOR DE LINKS- </h2>
+<h2 style="color:#FFD700">💡🎬 CODIFICADOR - PROJETOS E IDEIAS</h2>
+<p style="color:#aaa;font-size:12px">Só YouTube - Pega ideias e salva como pasta permanente pro Portal do Povo</p>
 
 <div class="box">
-<b>📁 GERENCIAR PASTAS (GÊNEROS)</b>
-<div style="display:flex;gap:6px"><input id="novaPasta" placeholder="Nome da pasta ex: AÇÃO"><button class="btn-amarelo" onclick="addPasta()">+ PASTA</button></div>
-<div id="listaPastas"></div>
+<b style="color:#FFD700">📁 PASTAS (PROJETOS E IDEIAS)</b>
+<div style="display:flex;gap:6px;margin-top:8px"><input id="novaPasta" placeholder="Ex: PROJETOS, IDEIAS, INSPIRAÇÕES"><button class="btn-amarelo" onclick="addPasta()">+ PASTA</button></div>
+<div id="listaPastas" style="margin-top:10px"></div>
 </div>
 
 <div class="box">
-<b>🎬 ADICIONAR FILME</b>
-<input id="tFilme" placeholder="Título do filme ex: Hitimam">
-<input id="idVideo" placeholder="ID do YouTube ex: x5QSOVQJM2w ou link completo https://youtu.be/...">
+<b style="color:#FFD700">🎬 PEGAR IDEIA DO YOUTUBE</b>
+<input id="tFilme" placeholder="Título da ideia ex: Ideia de vídeo pro portal">
+<input id="idVideo" placeholder="Link YouTube https://youtu.be/xxxxx">
 <select id="tagFilme"></select>
-<button class="btn-verde" onclick="addFilme()">+ ADICIONAR FILME</button>
-<hr>
-<b>📥 COLAR VÁRIOS LINKS DE UMA VEZ (ideias)</b>
-<textarea id="bulkLinks" rows="6" placeholder="Cole aqui todos os links https://youtu.be/... um por linha"></textarea>
-<button class="btn-amarelo" onclick="addBulk()">ADICIONAR TODOS OS LINKS COMO ideis</button>
+<button class="btn-amarelo" onclick="addFilme()" style="width:100%;padding:14px;margin-top:6px">+ SALVAR IDEIA / PROJETO</button>
+<hr style="border-color:#222;margin:12px 0">
+<b>📥 COLAR VÁRIOS LINKS DE UMA VEZ (YouTube)</b>
+<textarea id="bulkLinks" rows="5" placeholder="Cole um por linha:"></textarea>
+<div style="display:flex;gap:6px"><select id="tagBulk"></select><button class="btn-cinza" onclick="addBulk()">ADICIONAR TODOS</button></div>
 </div>
 
 <div class="box">
-<b>📋 FILMES CADASTRADOS (<span id="totalFilmes">0</span>)</b>
-<div id="listaFilmes"></div>
+<b>📋 PROJETOS E IDEIAS SALVOS (<span id="totalFilmes" style="color:#FFD700">0</span>)</b>
+<div id="listaFilmes" style="max-height:300px;overflow:auto;margin-top:8px"></div>
+<div style="display:flex;gap:6px;margin-top:10px"><button class="btn-vermelho" onclick="limpar()">🗑️ LIMPAR</button><button class="btn-cinza" onclick="exportarJson()">📤 EXPORTAR JSON</button></div>
 </div>
 
-<div class="box">
-<b>🔗 GERAR LINK CODIFICADO E INDEX.HTML PERMANENTE</b>
-<button class="btn-verde" style="width:100%;padding:16px" onclick="gerar()">GERAR TUDO</button>
-<p>Link Codificado:</p>
-<textarea id="outLink" rows="4" readonly></textarea>
-<button class="btn-amarelo" onclick="copiarLink()">COPIAR LINK</button>
-<button class="btn-verde" onclick="abrirLink()">ABRIR LINK E TESTAR</button>
-<hr>
-<p>index.html permanente (já com filmes fixos):</p>
-<textarea id="outIndex" rows="8" readonly></textarea>
-<button class="btn-verde" onclick="copiarIndex()">COPIAR INDEX.HTML</button>
+<div class="box" style="border-color:#FFD700">
+<b style="color:#FFD700">🔗 GERAR PASTA PERMANENTE</b>
+<button class="btn-amarelo" style="width:100%;padding:16px;font-size:14px" onclick="gerar()">⚡ GERAR INDEX.HTML PERMANENTE</button>
+<textarea id="outIndex" rows="12" readonly style="font-size:10px;background:#000"></textarea>
+<div style="display:flex;gap:6px"><button class="btn-verde" onclick="copiarIndex()" style="flex:1">COPIAR INDEX</button><button class="btn-amarelo" onclick="baixarIndex()" style="flex:1">📥 BAIXAR</button></div>
 </div>
-
 <script>
-let generos = JSON.parse(localStorage.getItem('cine_generos')||'null') || ["LANÇAMENTO","AÇÃO","BIBLICOS","IDEIAS","COMÉDIA"];
-let filmes = JSON.parse(localStorage.getItem('cine_filmes_pastas')||'null') || [
-{"t":
-
-function salvar(){localStorage.setItem('cine_filmes_pastas',JSON.stringify(filmes));localStorage.setItem('cine_generos',JSON.stringify(generos));render();}
-function render(){
-document.getElementById('totalFilmes').innerText=filmes.length;
-document.getElementById('listaPastas').innerHTML=generos.map(g=>`<span class="chip">${g} <b onclick="delPasta('${g}')" style="color:#f00;cursor:pointer"> x</b></span>`).join('');
-document.getElementById('tagFilme').innerHTML=generos.map(g=>`<option>${g}</option>`).join('');
-document.getElementById('listaFilmes').innerHTML=filmes.map((f,i)=>`<div class="filme-item"><span>${f.t} [${f.tag}]</span><span><b onclick="delFilme(${i})" style="color:#f00;cursor:pointer">EXCLUIR</b></span></div>`).join('');
+function normalizar(t){return t.toUpperCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
+function bonito(t){return t.toUpperCase().trim();}
+let generos = JSON.parse(localStorage.getItem('proj_ideias_generos')||'null') || ["PROJETOS","IDEIAS","INSPIRAÇÕES","REFERÊNCIAS","TUTORIAIS","PORTAL DO POVO","RASCUNHOS"];
+let filmes = JSON.parse(localStorage.getItem('proj_ideias_filmes')||'null') || [];
+function salvar(){
+  let mapa=new Map();generos.forEach(g=>mapa.set(normalizar(g), bonito(g)));
+  generos=Array.from(mapa.values());
+  localStorage.setItem('proj_ideias_filmes',JSON.stringify(filmes));
+  localStorage.setItem('proj_ideias_generos',JSON.stringify(generos));
+  render();
 }
-function addPasta(){let v=document.getElementById('novaPasta').value.trim().toUpperCase();if(!v)return;if(!generos.includes(v)){generos.push(v);document.getElementById('novaPasta').value='';salvar();}}
-function delPasta(g){if(g==="LANÇAMENTO")return alert('Não pode apagar LANÇAMENTO');generos=generos.filter(x=>x!==g);salvar();}
-function extrairID(url){let m=url.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);if(m)return m[1];if(url.length===11)return url;let m2=url.match(/([A-Za-z0-9_-]{11})/);return m2?m2[1]:null;}
+function render(){
+  document.getElementById('totalFilmes').innerText=filmes.length;
+  document.getElementById('listaPastas').innerHTML=generos.map(g=>`<span class="chip">${g} <b onclick="delPasta('${g}')" style="color:#f00"> x</b></span>`).join('');
+  document.getElementById('tagFilme').innerHTML=generos.map(g=>`<option value="${g}">${g}</option>`).join('');
+  document.getElementById('tagBulk').innerHTML=generos.map(g=>`<option value="${g}">${g}</option>`).join('');
+  document.getElementById('listaFilmes').innerHTML=filmes.map((f,i)=>`<div class="filme-item"><div><b>${f.t}</b><br><small style="color:#FFD700">${f.tag}</small></div><b onclick="delFilme(${i})" style="color:#f00;cursor:pointer;padding:6px">❌</b></div>`).reverse().join('');
+}
+function addPasta(){
+  let v=document.getElementById('novaPasta').value.trim();if(!v)return;
+  if(generos.some(g=>normalizar(g)===normalizar(v))){alert('Já existe: '+bonito(v));return;}
+  generos.push(bonito(v));document.getElementById('novaPasta').value='';salvar();
+}
+function delPasta(g){generos=generos.filter(x=>normalizar(x)!==normalizar(g));salvar();}
+function extrairID(url){
+  if(!url)return null;
+  let m=url.match(/(?:youtu\.be\/|v=|embed\/|shorts\/|watch\?v=)([A-Za-z0-9_-]{11})/);
+  if(m)return m[1];
+  let t=url.trim();if(t.length===11 && /^[A-Za-z0-9_-]{11}$/.test(t))return t;
+  return null;
+}
 function addFilme(){
-let t=document.getElementById('tFilme').value.trim()||'Filme '+(filmes.length+1);
-let idRaw=document.getElementById('idVideo').value.trim();
-let tag=document.getElementById('tagFilme').value;
-let vid=extrairID(idRaw);if(!vid)return alert('ID inválido');
-filmes.push({t:t,tag:tag,img:`https://img.youtube.com/vi/${vid}/hqdefault.jpg`,vid:vid});
-document.getElementById('tFilme').value='';document.getElementById('idVideo').value='';salvar();
+  let t=document.getElementById('tFilme').value.trim()||'Ideia '+(filmes.length+1);
+  let raw=document.getElementById('idVideo').value.trim();
+  let vid=extrairID(raw);if(!vid)return alert('Link YouTube inválido!');
+  let tag=bonito(document.getElementById('tagFilme').value||'IDEIAS');
+  filmes.push({t,tag,img:`https://img.youtube.com/vi/${vid}/hqdefault.jpg`,vid});
+  document.getElementById('tFilme').value='';document.getElementById('idVideo').value='';salvar();
 }
 function addBulk(){
-let txt=document.getElementById('bulkLinks').value;if(!txt.trim())return;
-let linhas=txt.split('\n');let c=0;
-linhas.forEach(l=>{
-let vid=extrairID(l.trim());if(vid){filmes.push({t:`Filme ${filmes.length+1}`,tag:'LANÇAMENTO',img:`https://img.youtube.com/vi/${vid}/hqdefault.jpg`,vid:vid});c++;}
-});
-document.getElementById('bulkLinks').value='';salvar();alert(c+' filmes adicionados!');
+  let txt=document.getElementById('bulkLinks').value;if(!txt.trim())return;
+  let tag=bonito(document.getElementById('tagBulk').value||'PROJETOS');
+  let linhas=txt.split('\n');let c=0;
+  linhas.forEach(l=>{let vid=extrairID(l.trim());if(vid){filmes.push({t:`${tag} ${filmes.length+1}`,tag,img:`https://img.youtube.com/vi/${vid}/hqdefault.jpg`,vid});c++;}});
+  document.getElementById('bulkLinks').value='';salvar();alert(c+' ideias em '+tag+'!');
 }
 function delFilme(i){filmes.splice(i,1);salvar();}
+function limpar(){if(confirm('Apagar todos?')){filmes=[];salvar();}}
+function exportarJson(){let data=JSON.stringify({generos,filmes},null,2);let blob=new Blob([data],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='projetos-e-ideias.json';a.click();}
 function gerar(){
-localStorage.setItem('cine_filmes_pastas',JSON.stringify(filmes));
-localStorage.setItem('cine_generos',JSON.stringify(generos));
-let data={g:generos,f:filmes};
-let jsonStr=JSON.stringify(data);
-let b64=btoa(unescape(encodeURIComponent(jsonStr)));
-let link=`https://bancogratidaooficial-ops.github.io/cine-gratiflix/index.html?data=${encodeURIComponent(b64)}`;
-document.getElementById('outLink').value=link;
-
-// GERA INDEX.HTML 100% PERMANENTE COM FILMES FIXOS DENTRO
-let filmesFixos=JSON.stringify(filmes,null,2);
-let generosFixos=JSON.stringify(generos);
-let indexPermanente=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LINKS</title><style>*{box-sizing:border-box}body{margin:0;background:#050505;color:#fff;font-family:Arial}.top{background:#000;padding:14px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:20;border-bottom:1px solid #222}.hero{padding:14px}.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0}.chip{white-space:nowrap;background:#111;border:1px solid #333;padding:8px 14px;border-radius:20px;font-size:12px;cursor:pointer}.chip.ativo{background:#f00;border-color:#f00;font-weight:900}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-bottom:16px}.card{background:#111;border-radius:15px;overflow:hidden;border:1px solid #222;cursor:pointer;position:relative}.card img{width:100%;height:210px;object-fit:cover;background:#222}.tag{position:absolute;top:0;left:0;margin:8px;background:#ffcc00;color:#000;font-size:9px;padding:5px 8px;border-radius:20px;font-weight:900}.nome{padding:8px;font-size:12px;font-weight:700;text-align:center}#player{position:fixed;inset:0;background:#000;z-index:999;display:none;flex-direction:column}#paywall{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:998;display:none;align-items:flex-end}.paybox{background:#121212;width:100%;border-radius:22px 22px 0 0;padding:20px}</style></head><body><div class="top"><div style="font-weight:900">🎬 CINE <b style="color:#f00">GRATIFLIX</b></div><div onclick="location.href='codificador.html'" style="color:#ffcc00;font-weight:900">⚙️</div></div><div class="hero"><div id="chips" class="chips"></div><div id="conteudo"></div></div><div id="player"><div style="padding:12px;background:#000;display:flex;justify-content:space-between"><b id="playerTitulo"></b><span onclick="fecharPlayer()" style="background:#222;padding:6px 12px;border-radius:20px">✕</span></div><div id="playerVideo" style="flex:1"></div></div><div id="paywall"><div class="paybox"><div style="display:flex;justify-content:space-between"><b>🔒 VIP</b><span onclick="fecharPaywall()">✕</span></div><p>Entre no grupo</p><button onclick="window.open('https://chat.whatsapp.com/BtNurXoNfSg2V2QbXTasC7s','_blank')" style="width:100%;padding:14px;background:#00ff88;border:0;border-radius:12px;font-weight:900">ENTRAR NO GRUPO</button></div></div><script>let filmesPadrao=${filmesFixos};let generos=${generosFixos};let filtro="TODOS";function renderChips(){let counts={};filmesPadrao.forEach(f=>counts[f.tag]=(counts[f.tag]||0)+1);let h=\`<div class="chip \${filtro==="TODOS"?"ativo":""}" onclick="setFiltro('TODOS')">TODOS (\${filmesPadrao.length})</div>\`;generos.forEach(g=>{let c=counts[g]||0;h+=\`<div class="chip \${filtro===g?"ativo":""}" onclick="setFiltro('\${g}')">\${g} (\${c})</div>\`;});document.getElementById('chips').innerHTML=h;}function setFiltro(g){filtro=g;renderChips();renderGrid();}function renderGrid(){let lista=filtro==="TODOS"?filmesPadrao:filmesPadrao.filter(f=>f.tag===filtro);window.todos=lista;let html=\`<div class="grid">\`+lista.map((f,i)=>\`<div class="card" data-i="\${i}"><span class="tag">\${f.tag}</span><img src="\${f.img}" loading="lazy"><div class="nome">\${f.t}</div></div>\`).join('')+'</div>';document.getElementById('conteudo').innerHTML=html;document.querySelectorAll('.card').forEach(el=>el.addEventListener('click',()=>abrirPlayer(parseInt(el.dataset.i))));}function abrirPlayer(i){let f=window.todos[i];document.getElementById('playerTitulo').innerText=f.t;document.getElementById('playerVideo').innerHTML=\`<iframe width="100%" height="100%" src="https://www.youtube.com/embed/\${f.vid}?autoplay=1" frameborder="0" allowfullscreen></iframe>\`;document.getElementById('player').style.display='flex';setTimeout(()=>{document.getElementById('paywall').style.display='flex'},120000);}function fecharPlayer(){document.getElementById('player').style.display='none';document.getElementById('playerVideo').innerHTML='';fecharPaywall();}function fecharPaywall(){document.getElementById('paywall').style.display='none';}renderChips();renderGrid();<\/script></body></html>`;
-document.getElementById('outIndex').value=indexPermanente;
-alert('GERADO! Agora seu index.html é 100% permanente, não apaga mais!');
+  salvar();
+  let filmesFixos=JSON.stringify(filmes,null,2);
+  let generosFixos=JSON.stringify(generos);
+  let index=`<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#FFD700"><title>💡 PROJETOS E IDEIAS - Portal do Povo</title><style>*{box-sizing:border-box;margin:0;padding:0}body{background:#050505;color:#fff;font-family:Arial;padding-bottom:20px}.top{background:#000;padding:14px;position:sticky;top:0;z-index:20;border-bottom:2px solid #FFD700;display:flex;justify-content:space-between;align-items:center}.top b{color:#FFD700}.chips{display:flex;gap:8px;padding:10px;overflow-x:auto;background:#0a0a0a;position:sticky;top:52px;z-index:10}.chip{padding:8px 14px;border-radius:20px;background:#1a1a1a;border:1px solid #333;color:#fff;font-size:12px;white-space:nowrap;cursor:pointer;font-weight:700}.chip.ativo{background:#FFD700;color:#000;border-color:#FFD700}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}.card{background:#111;border-radius:12px;overflow:hidden;border:1px solid #222;cursor:pointer;position:relative}.card img{width:100%;aspect-ratio:16/9;object-fit:cover;background:#222;display:block}.card .info{padding:8px}.card .t{font-size:11px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card .tag{position:absolute;top:6px;left:6px;font-size:9px;color:#000;background:#FFD700;padding:3px 8px;border-radius:12px;font-weight:900}#player{position:fixed;inset:0;background:#000;z-index:99999;display:none;flex-direction:column}#player iframe{flex:1;border:0;width:100%}</style></head><body><div class="top"><div><b>💡 PROJETOS E IDEIAS</b><div style="font-size:11px;color:#aaa">Portal do Povo - YouTube</div></div><div onclick="location.href='../'" style="color:#FFD700;font-weight:900;cursor:pointer">⬅ VOLTAR</div></div><div id="chips" class="chips"></div><div id="conteudo"></div><div id="player"><div style="padding:10px;background:#000;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222"><div id="playerTitulo" style="font-weight:900;font-size:13px"></div><button onclick="fecharPlayer()" style="background:#222;color:#fff;border:0;padding:6px 12px;border-radius:20px">❌ FECHAR</button></div><iframe id="iframePlayer" allowfullscreen></iframe></div><script>let filmes=${filmesFixos};let generos=${generosFixos};function normalizar(t){return t.toUpperCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}let filtro='TODOS';function renderChips(){let counts={};filmes.forEach(f=>{let k=normalizar(f.tag);counts[k]=(counts[k]||0)+1;});let h='<div class="chip '+(filtro==='TODOS'?'ativo':'')+'" onclick="setFiltro(\\'TODOS\\')">TODOS ('+filmes.length+')</div>';generos.forEach(g=>{let k=normalizar(g);let c=counts[k]||0;h+='<div class="chip '+(normalizar(filtro)===k?'ativo':'')+'" onclick="setFiltro(\\''+g.replace(/'/g,"\\\\'")+'\\')">'+g+' ('+c+')</div>';});document.getElementById('chips').innerHTML=h;}function setFiltro(g){filtro=g;renderChips();renderGrid();}function renderGrid(){let lista=filtro==='TODOS'?filmes:filmes.filter(f=>normalizar(f.tag)===normalizar(filtro));window.listaAtual=lista;let html='<div class="grid">'+lista.map((f,i)=>'<div class="card" onclick="abrirPlayer('+i+')"><span class="tag">'+f.tag+'</span><img src="'+f.img+'" loading="lazy"><div class="info"><div class="t">'+f.t+'</div></div></div>').join('')+'</div>';if(lista.length===0) html='<div style=padding:40px;text-align:center;color:#888>Sem ideias nesta pasta<br><small>Clique em TODOS</small></div>';document.getElementById('conteudo').innerHTML=html;}function abrirPlayer(i){let f=window.listaAtual[i];document.getElementById('playerTitulo').innerText=f.t+' - '+f.tag;document.getElementById('iframePlayer').src='https://www.youtube.com/embed/'+f.vid+'?autoplay=1';document.getElementById('player').style.display='flex';}function fecharPlayer(){document.getElementById('player').style.display='none';document.getElementById('iframePlayer').src='';}renderChips();renderGrid();<\/script></body></html>`;
+  document.getElementById('outIndex').value=index;
+  alert('GERADO! '+filmes.length+' vídeos!');
 }
-function copiarLink(){let t=document.getElementById('outLink');t.select();document.execCommand('copy');alert('Link copiado!');}
-function abrirLink(){let l=document.getElementById('outLink').value;if(l)window.open(l,'_blank');}
-function copiarIndex(){let t=document.getElementById('outIndex');t.select();document.execCommand('copy');alert('index.html permanente copiado! Cola no GitHub');}
+function copiarIndex(){let t=document.getElementById('outIndex');t.select();document.execCommand('copy');alert('INDEX copiado!');}
+function baixarIndex(){let c=document.getElementById('outIndex').value;if(!c)return alert('Gere primeiro!');let blob=new Blob([c],{type:'text/html'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='index.html';a.click();}
 render();
 </script>
 </body>
